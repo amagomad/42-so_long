@@ -43,3 +43,12 @@ int		key_press(int keycode, void *param)
 		close_window(param);
 	return (0);
 }
+
+void    open_errors(int fd)
+{
+    if (fd < 0)
+    {
+        ft_printf("ERROR : couldn't open file");
+        exit(EXIT_FAILURE);
+    }
+}

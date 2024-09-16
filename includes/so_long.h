@@ -17,7 +17,7 @@
 #define KEY_A 0
 #define KEY_S 1
 #define KEY_D 2
-#define KEY_ESC 53
+#define KEY_ESC 65307
 
 # include "ft_printf/ft_printf.h"
 # include "getnextline/get_next_line.h"
@@ -65,6 +65,7 @@ void    ac_check(int ac);
 int		close_window(void *param);
 int		key_press(int keycode, void *param);
 int     ft_strlen(char *str);
+void    open_errors(int fd);
 
 //utils_2
 
@@ -72,5 +73,6 @@ void    mlx_xpm_init(t_xpm *xpm, t_win *win);
 void    map_init(t_map *map);
 void	stock_map(t_map *map, char **av);
 void    ft_free(t_win *win, t_map *map, t_xpm *xpm);
+void	draw_map(t_win *win, t_xpm *xpm, t_map *map);
 
 #endif

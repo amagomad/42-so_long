@@ -16,7 +16,10 @@ void	mlx_xpm_init(t_xpm *xpm, t_win *win)
 {
     win->mlx_ptr = mlx_init();
 	if (!win->mlx_ptr)
+	{
+		ft_printf("initiation of minilibx failed\n");
 		exit(EXIT_FAILURE);
+	}
     xpm->underground_img = mlx_xpm_file_to_image(win->mlx_ptr, "includes/img/1.xpm", &xpm->underground_width, &xpm->underground_height);
 	if (!xpm->underground_img)
     {
@@ -43,47 +46,15 @@ void	stock_map(t_map *map, char **av)
 	char	*line;
 	int		height;
 	int		i;
-	int		first_line_length;
 
-	height = 0;
 	i = 0;
 
 	// Open file
 	fd = open(av[1], O_RDONLY);
-	if (fd < 0)
-	{
-		ft_printf("ERROR : Couldn't open the file\n");
-		exit(EXIT_FAILURE);
-	}
+	open_errors(fd);
 
-	// lines count and verify line lengths
-	first_line_length = 0;
-	while ((line = get_next_line(fd)) != NULL)
-	{
-		// remove the newline character if present
-		if (line[ft_strlen(line) - 1] == '\n')
-			line[ft_strlen(line) - 1] = '\0';
-
-		// stock first line width
-		if (height == 0)
-		{
-			first_line_length = ft_strlen(line);
-		}
-		else
-		{
-			// check if all lines got the same width
-			if ((int)ft_strlen(line) != first_line_length)
-			{
-				ft_printf("ERROR : Lines must all be the same width\n");
-				free(line);
-				close(fd);
-				exit(EXIT_FAILURE);
-			}
-		}
-
-		free(line);
-		height++;
-	}
+	// verify all lines are the same lengths
+	height = count_lines(line, fd);
 	close(fd);
 
 	// Memory Allocation
@@ -120,8 +91,6 @@ void	stock_map(t_map *map, char **av)
 	close(fd);
 }
 
-
-
 void	ft_free(t_win *win, t_map *map, t_xpm *xpm)
 {
     mlx_destroy_image(win->mlx_ptr, xpm->underground_img);
@@ -133,4 +102,60 @@ void	ft_free(t_win *win, t_map *map, t_xpm *xpm)
 	free(map->map);
 	free(map);
 	free(win);
+}
+
+void	draw_map(t_win *win, t_xpm *xpm, t_map *map)
+{
+	int		x;
+	int		y;
+
+	y = 0;
+    while (y < map->height)
+    {
+        x = 0;
+        while (x < map->width)
+        {
+            if (map->map[y][x] == '1')
+                mlx_put_image_to_window(win->mlx_ptr, win->win_ptr, xpm->underground_img, x * xpm->underground_width, y * xpm->underground_height);
+            else if (map->map[y][x] == '0')
+                mlx_put_image_to_window(win->mlx_ptr, win->win_ptr, xpm->ground_img, x * xpm->ground_width, y * xpm->ground_height);
+            else if (map->map[y][x] == 'P')
+                mlx_put_image_to_window(win->mlx_ptr, win->win_ptr, xpm->player_img, x * xpm->player_width, y * xpm->player_height);
+            x++;
+        }
+        y++;
+    }
+}
+
+int		count_lines(char *line, int fd)
+{
+	int		first_line_length;
+	int		height;
+
+	first_line_length = 0;
+	height = 0;
+	while ((line = get_next_line(fd)) != NULL)
+	{
+		// remove the newline character if present
+		if (line[ft_strlen(line) - 1] == '\n')
+			line[ft_strlen(line) - 1] = '\0';
+
+		// stock first line width
+		if (height == 0)
+			first_line_length = ft_strlen(line);
+		else
+		{
+			// check if all lines got the same width
+			if ((int)ft_strlen(line) != first_line_length)
+			{
+				ft_printf("ERROR : Lines must all be the same width\n");
+				free(line);
+				close(fd);
+				exit(EXIT_FAILURE);
+			}
+		}
+
+		free(line);
+		height++;
+	}
 }

@@ -17,7 +17,6 @@ int main(int ac, char **av)
     t_win *win;
     t_map *map;
     t_xpm *xpm;
-    int x, y;
 
     ac_check(ac);
     win = malloc(sizeof(t_win));
@@ -33,22 +32,7 @@ int main(int ac, char **av)
         return (free(win->mlx_ptr), 1);
 
     // Dessiner la carte
-    y = 0;
-    while (y < map->height)
-    {
-        x = 0;
-        while (x < map->width)
-        {
-            if (map->map[y][x] == '1')
-                mlx_put_image_to_window(win->mlx_ptr, win->win_ptr, xpm->underground_img, x * xpm->underground_width, y * xpm->underground_height);
-            else if (map->map[y][x] == '0')
-                mlx_put_image_to_window(win->mlx_ptr, win->win_ptr, xpm->ground_img, x * xpm->ground_width, y * xpm->ground_height);
-            else if (map->map[y][x] == 'P')
-                mlx_put_image_to_window(win->mlx_ptr, win->win_ptr, xpm->player_img, x * xpm->player_width, y * xpm->player_height);
-            x++;
-        }
-        y++;
-    }
+    draw_map(win, xpm, map);
 
     // gestion de la fermeture de la fenêtre et des touches
     mlx_hook(win->win_ptr, 17, 0, close_window, NULL);
