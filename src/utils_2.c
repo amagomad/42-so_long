@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:10:22 by amagomad          #+#    #+#             */
-/*   Updated: 2024/09/08 14:10:28 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/09/18 16:04:47 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,14 @@ void	stock_map(t_map *map, char **av)
 	int		i;
 
 	i = 0;
+	line = NULL;
 
 	// Open file
 	fd = open(av[1], O_RDONLY);
 	open_errors(fd);
 
 	// verify all lines are the same lengths
-	height = count_lines(line, fd);
+	height = count_lines(line, fd, map);
 	close(fd);
 
 	// Memory Allocation
@@ -67,17 +68,10 @@ void	stock_map(t_map *map, char **av)
 
 	// Re-open to stock this time
 	fd = open(av[1], O_RDONLY);
-	if (fd < 0)
-	{
-		ft_printf("ERROR : Couldn't reopen the file\n");
-		exit(EXIT_FAILURE);
-	}
-
-	//initiate map dimensions in struct
-	map->height = height;
-	map->width = first_line_length;
+	open_errors(fd);
 
 	i = 0;
+
 	while ((line = get_next_line(fd)) != NULL)
 	{
 		if (line[ft_strlen(line) - 1] == '\n')
@@ -120,32 +114,32 @@ void	draw_map(t_win *win, t_xpm *xpm, t_map *map)
             else if (map->map[y][x] == '0')
                 mlx_put_image_to_window(win->mlx_ptr, win->win_ptr, xpm->ground_img, x * xpm->ground_width, y * xpm->ground_height);
             else if (map->map[y][x] == 'P')
+			{
+				xpm->player_x = x;
+    			xpm->player_y = y;
                 mlx_put_image_to_window(win->mlx_ptr, win->win_ptr, xpm->player_img, x * xpm->player_width, y * xpm->player_height);
+			}
             x++;
         }
         y++;
     }
 }
 
-int		count_lines(char *line, int fd)
+int		count_lines(char *line, int fd, t_map *map)
 {
 	int		first_line_length;
 	int		height;
 
 	first_line_length = 0;
-	height = 0;
+	height = 1;
 	while ((line = get_next_line(fd)) != NULL)
 	{
-		// remove the newline character if present
 		if (line[ft_strlen(line) - 1] == '\n')
 			line[ft_strlen(line) - 1] = '\0';
-
-		// stock first line width
-		if (height == 0)
+		if (height == 1)
 			first_line_length = ft_strlen(line);
 		else
 		{
-			// check if all lines got the same width
 			if ((int)ft_strlen(line) != first_line_length)
 			{
 				ft_printf("ERROR : Lines must all be the same width\n");
@@ -154,8 +148,10 @@ int		count_lines(char *line, int fd)
 				exit(EXIT_FAILURE);
 			}
 		}
-
+		map->height = height;
+		map->width = first_line_length;
 		free(line);
 		height++;
 	}
+	return (height);
 }

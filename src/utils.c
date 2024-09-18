@@ -6,7 +6,7 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:10:22 by amagomad          #+#    #+#             */
-/*   Updated: 2024/09/08 14:10:28 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/09/18 16:00:44 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,20 @@ int     close_window(void *param)
 	exit(EXIT_SUCCESS);
 }
 
-int		key_press(int keycode, void *param)
+int     key_press(int keycode, t_params *params)
 {
-	if (keycode == KEY_ESC)
-		close_window(param);
-	return (0);
+    printf("Key pressed: %d\n", keycode);
+
+    if (keycode == KEY_ESC)
+        close_window(params->win);
+
+    move_player(params->xpm, params->map, keycode);
+    draw_map(params->win, params->xpm, params->map);
+
+    return (0);
 }
+
+
 
 void    open_errors(int fd)
 {

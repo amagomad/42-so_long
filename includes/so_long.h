@@ -6,17 +6,17 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:09:58 by amagomad          #+#    #+#             */
-/*   Updated: 2024/09/13 10:21:12 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/09/18 16:02:42 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-#define KEY_W 13
-#define KEY_A 0
-#define KEY_S 1
-#define KEY_D 2
+#define KEY_W 119
+#define KEY_A 97
+#define KEY_S 115
+#define KEY_D 100
 #define KEY_ESC 65307
 
 # include "ft_printf/ft_printf.h"
@@ -59,11 +59,18 @@ typedef struct s_xpm
 	int		ground_height;
 } t_xpm;
 
-//utils :
+typedef struct s_params
+{
+    t_xpm *xpm;
+    t_map *map;
+    t_win *win;
+} t_params;
+
+//utils
 
 void    ac_check(int ac);
 int		close_window(void *param);
-int		key_press(int keycode, void *param);
+int		key_press(int keycode, t_params *params);
 int     ft_strlen(char *str);
 void    open_errors(int fd);
 
@@ -74,5 +81,10 @@ void    map_init(t_map *map);
 void	stock_map(t_map *map, char **av);
 void    ft_free(t_win *win, t_map *map, t_xpm *xpm);
 void	draw_map(t_win *win, t_xpm *xpm, t_map *map);
+int		count_lines(char *line, int fd, t_map *map);
+
+//utils_3
+
+void    move_player(t_xpm *xpm, t_map *map, int keycode);
 
 #endif
