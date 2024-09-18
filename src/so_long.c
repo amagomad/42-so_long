@@ -6,7 +6,7 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:10:22 by amagomad          #+#    #+#             */
-/*   Updated: 2024/09/18 16:25:48 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/09/18 18:34:00 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int main(int ac, char **av)
     params->map = map;
     params->win = win;
     stock_map(map, av);
+    collectibles_count(map);
     mlx_xpm_init(xpm, win);
 
     win->mlx_ptr = mlx_init();
@@ -41,7 +42,5 @@ int main(int ac, char **av)
     mlx_key_hook(win->win_ptr, key_press, params);
     
     mlx_loop(win->mlx_ptr);
-
-    ft_free(win, map, xpm);
     return (0);
 }

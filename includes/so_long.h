@@ -6,7 +6,7 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:09:58 by amagomad          #+#    #+#             */
-/*   Updated: 2024/09/18 16:02:42 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/09/18 18:34:33 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,34 @@ typedef struct s_map
 	int		height;
 	int		width;
 	char	**map;
+	int		collected;
+	int		total_collec;
 } t_map;
 
 typedef struct s_xpm
 {
+	// player
 	void	*player_img;
 	int		player_width;
 	int		player_height;
 	int		player_x;
 	int		player_y;
+	// walls
 	void	*underground_img;
 	int		underground_width;
 	int		underground_height;
+	// grass
 	void	*ground_img;
 	int		ground_width;
 	int		ground_height;
+	// collectibles
+	void	*collec_img;
+	int		collec_width;
+	int		collec_height;
+	// exit
+	void	*exit_img;
+	int		exit_width;
+	int		exit_height;
 } t_xpm;
 
 typedef struct s_params
@@ -79,12 +92,13 @@ void    open_errors(int fd);
 void    mlx_xpm_init(t_xpm *xpm, t_win *win);
 void    map_init(t_map *map);
 void	stock_map(t_map *map, char **av);
-void    ft_free(t_win *win, t_map *map, t_xpm *xpm);
+void    ft_free(t_params *params);
 void	draw_map(t_win *win, t_xpm *xpm, t_map *map);
 int		count_lines(char *line, int fd, t_map *map);
 
 //utils_3
 
-void    move_player(t_xpm *xpm, t_map *map, int keycode);
+void    move_player(t_xpm *xpm, t_map *map, int keycode, t_params *params);
+void    collectibles_count(t_map *map);
 
 #endif
