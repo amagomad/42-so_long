@@ -6,7 +6,7 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:10:22 by amagomad          #+#    #+#             */
-/*   Updated: 2024/09/20 16:54:45 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/09/20 17:42:29 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,29 +41,18 @@ void	stock_map(t_map *map, char **av)
 
 	i = 0;
 	line = NULL;
-
-	// open file to check lines
-	fd = open(av[1], O_RDONLY);
+	fd = open(av[1], O_RDONLY);				// open file to check lines
 	open_errors(fd);
-
-	// verify all lines are same lengths
-	height = count_lines(line, fd, map);
+	height = count_lines(line, fd, map);	// verify all lines are same lengths
 	close(fd);
-
-	// malloc it
-	map->map = (char **)malloc(sizeof(char *) * (height + 1));
+	map->map = (char **)malloc(sizeof(char *) * (height + 1));		// malloc it
 	if (!map->map)
 	{
 		ft_printf("ERROR : Memory allocation failed\n");
 		exit(EXIT_FAILURE);
 	}
-
-	// re-open to stock this time
-	fd = open(av[1], O_RDONLY);
+	fd = open(av[1], O_RDONLY);		// re-open to stock this time
 	open_errors(fd);
-
-	i = 0;
-
 	while ((line = get_next_line(fd)) != NULL)
 	{
 		if (line[ft_strlen(line) - 1] == '\n')
@@ -77,39 +66,30 @@ void	stock_map(t_map *map, char **av)
 	close(fd);
 }
 
-void ft_free(t_params *params)
+void	ft_free(t_params *params)
 {
-    if (params->xpm->underground_img)
-        mlx_destroy_image(params->win->mlx_ptr, params->xpm->underground_img);
-    if (params->xpm->ground_img)
-        mlx_destroy_image(params->win->mlx_ptr, params->xpm->ground_img);
-    if (params->xpm->player_img)
-        mlx_destroy_image(params->win->mlx_ptr, params->xpm->player_img);
-    if (params->xpm->collec_img)
-        mlx_destroy_image(params->win->mlx_ptr, params->xpm->collec_img);
-    if (params->xpm->exit_img)
-        mlx_destroy_image(params->win->mlx_ptr, params->xpm->exit_img);
+	int		i;
 
-    if (params->win->win_ptr)
-        mlx_destroy_window(params->win->mlx_ptr, params->win->win_ptr);
-    if (params->win->mlx_ptr)
-        mlx_destroy_display(params->win->mlx_ptr);
-
-    if (params->win->mlx_ptr)
-        free(params->win->mlx_ptr);
-
-    if (params->map->map)
-    {
-        int i = 0;
-        while (params->map->map[i])
-        {
-            free(params->map->map[i]);
-            i++;
-        }
-        free(params->map->map);
-    }
-    free(params->map);
-    free(params->win);
+	i = 0;
+	mlx_destroy_image(params->win->mlx_ptr, params->xpm->underground_img);
+	mlx_destroy_image(params->win->mlx_ptr, params->xpm->ground_img);
+	mlx_destroy_image(params->win->mlx_ptr, params->xpm->player_img);
+	mlx_destroy_image(params->win->mlx_ptr, params->xpm->collec_img);
+	mlx_destroy_image(params->win->mlx_ptr, params->xpm->exit_img);
+	mlx_destroy_window(params->win->mlx_ptr, params->win->win_ptr);
+	mlx_destroy_display(params->win->mlx_ptr);
+	free(params->win->mlx_ptr);
+	if (params->map->map)
+	{
+		while (params->map->map[i])
+		{
+			free(params->map->map[i]);
+			i++;
+		}
+		free(params->map->map);
+	}
+	free(params->map);
+	free(params->win);
 }
 
 

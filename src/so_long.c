@@ -6,7 +6,7 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:10:22 by amagomad          #+#    #+#             */
-/*   Updated: 2024/09/20 16:55:02 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/09/20 18:02:59 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,38 @@
 
 int main(int ac, char **av)
 {
-    t_win *win;
-    t_map *map;
-    t_xpm *xpm;
-    t_params *params;
-    
-    ac_check(ac);
-    params = malloc(sizeof(t_params));
-    win = malloc(sizeof(t_win));
-    map = malloc(sizeof(t_map));
-    xpm = malloc(sizeof(t_xpm));
-    params->xpm = xpm;
-    params->map = map;
-    params->win = win;
-    stock_map(map, av);
-    collectibles_count(map);
-    mlx_xpm_init(xpm, win);
+	t_win *win;
+	t_map *map;
+	t_xpm *xpm;
+	t_params *params;
 
-    win->mlx_ptr = mlx_init();
-    win->win_ptr = mlx_new_window(win->mlx_ptr, map->width * 64, map->height * 64, "so_long");
-    if (!win->win_ptr)
-        return (free(win->mlx_ptr), 1);
+	ac_check(ac);
+	params = malloc(sizeof(t_params));
+	win = malloc(sizeof(t_win));
+	map = malloc(sizeof(t_map));
+	xpm = malloc(sizeof(t_xpm));
+	params->xpm = xpm;
+	params->map = map;
+	params->win = win;
+	stock_map(map, av);
+	collectibles_count(map);
+	mlx_xpm_init(xpm, win);
+	if (!check_walls(map) || !validate_map(map))
+	{
+		printf("Error: invalid map.\n");
+		exit(EXIT_FAILURE);
+	}
 
-    draw_map(win, xpm, map);
+	win->mlx_ptr = mlx_init();
+	win->win_ptr = mlx_new_window(win->mlx_ptr, map->width * 64, map->height * 64, "so_long");
+	if (!win->win_ptr)
+		return (free(win->mlx_ptr), 1);
 
-    mlx_hook(win->win_ptr, 17, 0, close_window, NULL);
-    mlx_key_hook(win->win_ptr, key_press, params);
-    
-    mlx_loop(win->mlx_ptr);
-    return (0);
+	draw_map(win, xpm, map);
+
+	mlx_hook(win->win_ptr, 17, 0, close_window, NULL);
+	mlx_key_hook(win->win_ptr, key_press, params);
+
+	mlx_loop(win->mlx_ptr);
+	return (0);
 }

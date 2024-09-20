@@ -6,7 +6,7 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:09:58 by amagomad          #+#    #+#             */
-/*   Updated: 2024/09/18 18:34:33 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/09/20 18:04:55 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 
 typedef struct s_win 
 {
-    void		*mlx_ptr;
+	void		*mlx_ptr;
 	void		*win_ptr;
 } t_win;
 
@@ -45,6 +45,13 @@ typedef struct s_map
 	int		collected;
 	int		total_collec;
 } t_map;
+
+typedef struct s_node
+{
+	int				x;
+	int				y;
+	struct s_node	*next;
+} t_node;
 
 typedef struct s_xpm
 {
@@ -74,31 +81,36 @@ typedef struct s_xpm
 
 typedef struct s_params
 {
-    t_xpm *xpm;
-    t_map *map;
-    t_win *win;
+	t_xpm *xpm;
+	t_map *map;
+	t_win *win;
 } t_params;
 
 //utils
 
-void    ac_check(int ac);
+void	ac_check(int ac);
 int		close_window(void *param);
 int		key_press(int keycode, t_params *params);
-int     ft_strlen(char *str);
-void    open_errors(int fd);
+int		ft_strlen(char *str);
+void	open_errors(int fd);
 
 //utils_2
 
-void    mlx_xpm_init(t_xpm *xpm, t_win *win);
-void    map_init(t_map *map);
+void	mlx_xpm_init(t_xpm *xpm, t_win *win);
+void	map_init(t_map *map);
 void	stock_map(t_map *map, char **av);
-void    ft_free(t_params *params);
+void	ft_free(t_params *params);
 void	draw_map(t_win *win, t_xpm *xpm, t_map *map);
 int		count_lines(char *line, int fd, t_map *map);
 
 //utils_3
 
-void    move_player(t_xpm *xpm, t_map *map, int keycode, t_params *params);
-void    collectibles_count(t_map *map);
+void	move_player(t_xpm *xpm, t_map *map, int keycode, t_params *params);
+void	collectibles_count(t_map *map);
+int		check_walls(t_map *map);
+int		validate_map(t_map *map);
+void	flood_fill(char **map_copy, int x, int y, int *collectibles, int *exit);
+
+char	**copy_map(t_map *map);
 
 #endif
