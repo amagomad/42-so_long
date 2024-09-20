@@ -6,7 +6,7 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:10:22 by amagomad          #+#    #+#             */
-/*   Updated: 2024/09/18 18:32:19 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/09/20 16:54:45 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	mlx_xpm_init(t_xpm *xpm, t_win *win)
 	}
     xpm->underground_img = mlx_xpm_file_to_image(win->mlx_ptr, "includes/img/1.xpm", &xpm->underground_width, &xpm->underground_height);
 	xpm->ground_img = mlx_xpm_file_to_image(win->mlx_ptr, "includes/img/0.xpm", &xpm->ground_width, &xpm->ground_height);
-	xpm->player_img = mlx_xpm_file_to_image(win->mlx_ptr, "includes/img/P0.xpm", &xpm->player_width, &xpm->player_height);
+	xpm->player_img = mlx_xpm_file_to_image(win->mlx_ptr, "includes/img/P.xpm", &xpm->player_width, &xpm->player_height);
 	xpm->collec_img = mlx_xpm_file_to_image(win->mlx_ptr, "includes/img/C.xpm", &xpm->collec_width, &xpm->collec_height);
 	xpm->exit_img = mlx_xpm_file_to_image(win->mlx_ptr, "includes/img/E.xpm", &xpm->exit_width, &xpm->exit_height);
 	if (!xpm->player_img || !xpm->underground_img || !xpm->ground_img || !xpm->collec_img)
