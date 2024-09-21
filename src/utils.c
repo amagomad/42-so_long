@@ -6,55 +6,71 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:10:22 by amagomad          #+#    #+#             */
-/*   Updated: 2024/09/20 17:24:25 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/09/21 14:04:12 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-int     ft_strlen(char *str)
+int	ft_strlen(char *str)
 {
-    int     i;
+	int		i;
 
-    i = 0;
-    while (str[i])
-        i++;
-    return (i);
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
 
-void    ac_check(int ac)
+int	close_window(t_params *params)
 {
-    if (ac - 1 != 1)
-    {
-        ft_printf("ERROR : 1 argument is the amount required");
-        exit(EXIT_FAILURE);
-    }
-}
-
-int     close_window(void *param)
-{
-	(void)param;
+	ft_free(params, 1);
+	(void)params;
 	exit(EXIT_SUCCESS);
 }
 
-int key_press(int keycode, t_params *params)
+int	key_press(int keycode, t_params *params)
 {
-    // printf("Key pressed: %d\n", keycode);
-
-    if (keycode == KEY_ESC)
-        close_window(params);
-
-    move_player(params->xpm, params->map, keycode, params);
-    draw_map(params->win, params->xpm, params->map);
-
-    return (0);
+	if (keycode == KEY_ESC)
+		close_window(params);
+	move_player(params->xpm, params->map, keycode, params);
+	draw_map(params);
+	return (0);
 }
 
-void    open_errors(int fd)
+char	*ft_strdup(char *src)
 {
-    if (fd < 0)
-    {
-        ft_printf("ERROR : couldn't open file");
-        exit(EXIT_FAILURE);
-    }
+	char	*dest;
+	int		i;
+
+	i = 0;
+	while (src[i] != '\0')
+		i++;
+	dest = malloc(sizeof(char) * (i + 1));
+	if (!dest)
+		return (NULL);
+	i = 0;
+	while (src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
+
+void	collec_and_print_moves(t_params *params, int x, int y, int code)
+{
+	if (params->map->map[y][x] == 'C')
+	{
+		params->map->collected++;
+		params->map->map[y][x] = '0';
+	}
+	update_position(params, x, y);
+	if (code == KEY_W || code == KEY_S
+		|| code == KEY_A || code == KEY_D)
+	{
+		params->map->nb_moves++;
+		printf("%d\n", params->map->nb_moves);
+	}
 }

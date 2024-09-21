@@ -6,7 +6,7 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:09:58 by amagomad          #+#    #+#             */
-/*   Updated: 2024/09/20 18:04:55 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/09/21 14:26:49 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,15 @@
 # include <sys/wait.h>
 # include <signal.h>
 
+typedef struct s_flood
+{
+	char	**map_copy;
+	int		collectibles;
+	int		exit;
+	int		start_x;
+	int		start_y;
+} t_flood;
+
 typedef struct s_win 
 {
 	void		*mlx_ptr;
@@ -44,14 +53,8 @@ typedef struct s_map
 	char	**map;
 	int		collected;
 	int		total_collec;
+	int		nb_moves;
 } t_map;
-
-typedef struct s_node
-{
-	int				x;
-	int				y;
-	struct s_node	*next;
-} t_node;
 
 typedef struct s_xpm
 {
@@ -86,31 +89,66 @@ typedef struct s_params
 	t_win *win;
 } t_params;
 
+// so_long
+
+void	mlx_xpm_init(t_xpm *xpm, t_win *win, t_params *params);
+void	move_player(t_xpm *xpm, t_map *map, int keycode, t_params *params);
+void	update_position(t_params *params, int x, int y);
+void	can_i_exit(t_params *params);
+
 //utils
 
-void	ac_check(int ac);
-int		close_window(void *param);
-int		key_press(int keycode, t_params *params);
 int		ft_strlen(char *str);
+int		close_window(t_params *params);
+int		key_press(int keycode, t_params *params);
+char	*ft_strdup(char *src);
+void	collec_and_print_moves(t_params *params, int new_x, int new_y, int keycode);
+
+// free
+
+void	ft_free(t_params *params, int i);
+void	win_destroyer(t_params *params);
+void	mlx_destroyer(t_params *params);
+void	map_destroyer(t_params *params);
+
+// fd
+
 void	open_errors(int fd);
+void	ac_ext_check(int ac, char **av);
+void	file_read_stock(t_map *map, int fd);
+int		file_ext(char *filename);
 
-//utils_2
+// map
 
-void	mlx_xpm_init(t_xpm *xpm, t_win *win);
-void	map_init(t_map *map);
-void	stock_map(t_map *map, char **av);
-void	ft_free(t_params *params);
-void	draw_map(t_win *win, t_xpm *xpm, t_map *map);
-int		count_lines(char *line, int fd, t_map *map);
+	// draw_characters
 
-//utils_3
+void	draw_1(t_params *params, int x, int y);
+void	draw_0(t_params *params, int x, int y);
+void	draw_p(t_params *params, int x, int y);
+void	draw_c(t_params *params, int x, int y);
+void	draw_e(t_params *params, int x, int y);
 
-void	move_player(t_xpm *xpm, t_map *map, int keycode, t_params *params);
+	// map
+
+void	stock_and_draw(t_params *params, char **av);
+void	stock_map(t_params *params, char **av);
+void	draw_map(t_params *params);
 void	collectibles_count(t_map *map);
-int		check_walls(t_map *map);
-int		validate_map(t_map *map);
-void	flood_fill(char **map_copy, int x, int y, int *collectibles, int *exit);
-
 char	**copy_map(t_map *map);
+
+	// map_parsing
+
+int		count_lines(char *line, int fd, t_params *params);
+void	flood_fill(t_flood *flood, int x, int y);
+int		check_walls(t_map *map);
+void	characters_check(t_map *map);
+void	exits_count(t_map *map);
+
+	// map_parsing 2
+
+int		validate_map(t_map *map);
+void	find_start_position(t_map *map, int *start_x, int *start_y);
+void	free_map_copy(char **map_copy, int height);
+void	lines_checker(t_params *params, char *line, int fd);
 
 #endif
