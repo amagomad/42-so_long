@@ -6,18 +6,18 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:09:58 by amagomad          #+#    #+#             */
-/*   Updated: 2024/09/21 14:26:49 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/09/21 15:15:10 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-#define KEY_W 119
-#define KEY_A 97
-#define KEY_S 115
-#define KEY_D 100
-#define KEY_ESC 65307
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
+# define KEY_ESC 65307
 
 # include "ft_printf/ft_printf.h"
 # include "getnextline/get_next_line.h"
@@ -38,13 +38,13 @@ typedef struct s_flood
 	int		exit;
 	int		start_x;
 	int		start_y;
-} t_flood;
+}	t_flood;
 
-typedef struct s_win 
+typedef struct s_win
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
-} t_win;
+}	t_win;
 
 typedef struct s_map
 {
@@ -54,7 +54,7 @@ typedef struct s_map
 	int		collected;
 	int		total_collec;
 	int		nb_moves;
-} t_map;
+}	t_map;
 
 typedef struct s_xpm
 {
@@ -80,14 +80,14 @@ typedef struct s_xpm
 	void	*exit_img;
 	int		exit_width;
 	int		exit_height;
-} t_xpm;
+}	t_xpm;
 
 typedef struct s_params
 {
-	t_xpm *xpm;
-	t_map *map;
-	t_win *win;
-} t_params;
+	t_xpm	*xpm;
+	t_map	*map;
+	t_win	*win;
+}	t_params;
 
 // so_long
 
@@ -102,7 +102,8 @@ int		ft_strlen(char *str);
 int		close_window(t_params *params);
 int		key_press(int keycode, t_params *params);
 char	*ft_strdup(char *src);
-void	collec_and_print_moves(t_params *params, int new_x, int new_y, int keycode);
+void	collec_and_print_moves(t_params *params, int new_x,
+			int new_y, int keycode);
 
 // free
 
@@ -142,13 +143,14 @@ int		count_lines(char *line, int fd, t_params *params);
 void	flood_fill(t_flood *flood, int x, int y);
 int		check_walls(t_map *map);
 void	characters_check(t_map *map);
-void	exits_count(t_map *map);
+void	exits_count(t_params *params);
 
 	// map_parsing 2
 
-int		validate_map(t_map *map);
+int		validate_map(t_params *params);
 void	find_start_position(t_map *map, int *start_x, int *start_y);
 void	free_map_copy(char **map_copy, int height);
 void	lines_checker(t_params *params, char *line, int fd);
+void	players_count(t_params *params);
 
 #endif

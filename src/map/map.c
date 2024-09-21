@@ -6,7 +6,7 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:22:21 by amagomad          #+#    #+#             */
-/*   Updated: 2024/09/21 14:07:23 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/09/21 14:53:38 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ void	stock_and_draw(t_params *params, char **av)
 	params->map->nb_moves = 0;
 	collectibles_count(params->map);
 	mlx_xpm_init(params->xpm, params->win, params);
-	if (!check_walls(params->map) || !validate_map(params->map))
+	if (!check_walls(params->map) || !validate_map(params))
 	{
 		printf("ERROR : Invalid map\n");
+		ft_free(params, 0);
 		exit(EXIT_FAILURE);
 	}
 	params->win->win_ptr = mlx_new_window(params->win->mlx_ptr,

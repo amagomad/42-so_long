@@ -6,7 +6,7 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:26:11 by amagomad          #+#    #+#             */
-/*   Updated: 2024/09/21 14:30:26 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/09/21 15:13:27 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	characters_check(t_map *map)
 	}
 }
 
-void	exits_count(t_map *map)
+void	exits_count(t_params *params)
 {
 	int		x;
 	int		y;
@@ -108,12 +108,12 @@ void	exits_count(t_map *map)
 
 	n = 0;
 	y = 0;
-	while (y < map->height)
+	while (y < params->map->height)
 	{
 		x = 0;
-		while (x < map->width)
+		while (x < params->map->width)
 		{
-			if (map->map[y][x] == 'E')
+			if (params->map->map[y][x] == 'E')
 				n++;
 			x++;
 		}
@@ -122,6 +122,7 @@ void	exits_count(t_map *map)
 	if (n != 1)
 	{
 		ft_printf("ERROR : (Only) 1 exit is required\n");
+		ft_free(params, 0);
 		exit(EXIT_FAILURE);
 	}
 }
