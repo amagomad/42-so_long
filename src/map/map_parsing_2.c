@@ -6,7 +6,7 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:46:41 by amagomad          #+#    #+#             */
-/*   Updated: 2024/09/23 19:38:58 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/09/23 20:23:10 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	free_map_copy(char **map_copy, int height)
 void	lines_checker(t_params *params, char *line, int fd)
 {
 	free(line);
-	ft_printf("ERROR: Lines must all be the same width\n");\
+	ft_printf("ERROR: Lines must all be the same width\n");
 	ft_free(params, 1);
 	close(fd);
 	exit(EXIT_FAILURE);

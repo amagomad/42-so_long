@@ -6,7 +6,7 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:09:58 by amagomad          #+#    #+#             */
-/*   Updated: 2024/09/23 18:05:52 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/09/23 20:22:17 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	can_i_exit(t_params *params);
 int		ft_strlen(char *str);
 int		close_window(t_params *params);
 int		key_press(int keycode, t_params *params);
-int		key_release(int keycode, t_params *params); 
+int		key_release(int keycode, t_params *params);
 char	*ft_strdup(char *src);
 void	collec_and_print_moves(t_params *params, int new_x,
 			int new_y, int keycode);
