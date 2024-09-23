@@ -6,7 +6,7 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:10:22 by amagomad          #+#    #+#             */
-/*   Updated: 2024/09/21 13:50:32 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/09/23 19:37:05 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,18 @@
 
 int	main(int ac, char **av)
 {
-	t_win		*win;
-	t_map		*map;
-	t_xpm		*xpm;
 	t_params	*params;
 
 	ac_ext_check(ac, av);
 	params = malloc(sizeof(t_params));
-	win = malloc(sizeof(t_win));
-	map = malloc(sizeof(t_map));
-	xpm = malloc(sizeof(t_xpm));
-	if (!params || !win || !map || !xpm)
-	{
-		ft_printf("ERROR : Memory allocation failed\n");
-		exit(EXIT_FAILURE);
-	}
-	params->xpm = xpm;
-	params->map = map;
-	params->win = win;
+	params->win = malloc(sizeof(t_win));
+	params->map = malloc(sizeof(t_map));
+	params->xpm = malloc(sizeof(t_xpm));
 	stock_and_draw(params, av);
-	mlx_loop(win->mlx_ptr);
-	ft_free(params, 1);
+	mlx_loop(params->win->mlx_ptr);
+	mlx_destroy_window(params->win->mlx_ptr, params->win->win_ptr);
+	mlx_destroy_display(params->win->mlx_ptr);
+	ft_free(params, 0);
 	return (0);
 }
 
@@ -61,7 +52,7 @@ void	mlx_xpm_init(t_xpm *xpm, t_win *win, t_params *params)
 	if (!xpm->player_img || !xpm->underground_img
 		|| !xpm->ground_img || !xpm->collec_img)
 	{
-		ft_free(params, 1);
+		ft_free(params, 0);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -101,7 +92,7 @@ void	can_i_exit(t_params *params)
 	{
 		params->map->nb_moves++;
 		ft_printf("%d\n", params->map->nb_moves);
-		ft_free(params, 1);
+		ft_free(params, 0);
 		exit(EXIT_SUCCESS);
 	}
 }

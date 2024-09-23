@@ -6,7 +6,7 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:22:21 by amagomad          #+#    #+#             */
-/*   Updated: 2024/09/21 14:53:38 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/09/23 19:37:47 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	stock_and_draw(t_params *params, char **av)
 		free(params->win->mlx_ptr);
 		exit(EXIT_FAILURE);
 	}
-	draw_map(params);
 	mlx_hook(params->win->win_ptr, 17, 0, close_window, params);
 	mlx_key_hook(params->win->win_ptr, key_press, params);
+	draw_map(params);
 }
 
 void	stock_map(t_params *params, char **av)

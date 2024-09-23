@@ -6,7 +6,7 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:17:17 by amagomad          #+#    #+#             */
-/*   Updated: 2024/09/21 15:13:09 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/09/23 19:34:22 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,38 @@
 
 void	ft_free(t_params *params, int i)
 {
+	int j;
+
+	j = 0;
 	if (i > 0)
 	{
-		if (params->map != NULL)
-			map_destroyer(params);
-		if (params->xpm != NULL)
-			mlx_destroyer(params);
-		if (params->win != NULL)
-			win_destroyer(params);
-		if (params != NULL)
-			free(params);
-	}
-	else
-	{
-		free(params->map);
 		free(params->xpm);
+		free(params->map);
 		free(params->win);
 		free(params);
 	}
-}
-
-void	win_destroyer(t_params *params)
-{
-	if (params->win->mlx_ptr != NULL)
+	else
 	{
-		mlx_destroy_window(params->win->mlx_ptr, params->win->win_ptr);
-		mlx_destroy_display(params->win->mlx_ptr);
-		free(params->win->mlx_ptr);
+		// if (params->map->map)
+		// {
+		// 	while (params->map->map[j])
+		// 	{
+		// 		if (params->map->map[j])
+		// 			free(params->map->map[j]);
+		// 		j++;
+		// 	}
+		// 	free(params->map->map);
+		// }
+		if (params->map)
+			map_destroyer(params);
+		if (params->xpm)
+			xpm_destroyer(params);
+		if (params)
+			free(params);
 	}
-	if (params->win != NULL)
-		free(params->win);
 }
 
-void	mlx_destroyer(t_params *params)
+void	xpm_destroyer(t_params *params)
 {
 	if (params->win != NULL && params->xpm != NULL)
 	{
@@ -70,14 +69,15 @@ void	map_destroyer(t_params *params)
 {
 	int		i;
 
+	i = 0;
 	if (params->map)
 	{
-		i = 0;
 		if (params->map->map)
 		{
 			while (params->map->map[i])
 			{
-				free(params->map->map[i]);
+				if (params->map->map[i])
+					free(params->map->map[i]);
 				i++;
 			}
 			free(params->map->map);

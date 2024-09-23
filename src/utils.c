@@ -6,7 +6,7 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:10:22 by amagomad          #+#    #+#             */
-/*   Updated: 2024/09/21 14:04:12 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/09/23 19:36:15 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_strlen(char *str)
 
 int	close_window(t_params *params)
 {
-	ft_free(params, 1);
+	ft_free(params, 0);
 	(void)params;
 	exit(EXIT_SUCCESS);
 }
