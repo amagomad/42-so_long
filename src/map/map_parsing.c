@@ -6,7 +6,7 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:26:11 by amagomad          #+#    #+#             */
-/*   Updated: 2024/09/23 19:38:38 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/10/20 16:38:01 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,16 @@ int	count_lines(char *line, int fd, t_params *params)
 
 void	flood_fill(t_flood *flood, int x, int y)
 {
+	if (flood->map_copy[y][x] == 'E')
+	{
+		flood->exit++;
+		flood->map_copy[y][x] = '1';
+	}
 	if (flood->map_copy[y][x] == '1' || flood->map_copy[y][x] == 'V')
 		return ;
 	if (flood->map_copy[y][x] == 'C')
 		flood->collectibles++;
-	if (flood->map_copy[y][x] == 'E')
-		flood->exit++;
+	
 	flood->map_copy[y][x] = 'V';
 	flood_fill(flood, x + 1, y);
 	flood_fill(flood, x - 1, y);
