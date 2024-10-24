@@ -6,7 +6,7 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:17:17 by amagomad          #+#    #+#             */
-/*   Updated: 2024/10/24 13:47:04 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/10/24 14:24:51 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,16 @@ void	ft_free(t_params *params, int i)
 		if (params->xpm)
 			xpm_destroyer(params);
 		if (params->win)
+		{
+			if (params->win->win_ptr)
+				mlx_destroy_window(params->win->mlx_ptr, params->win->win_ptr);
+			if (params->win->mlx_ptr)
+			{
+				mlx_destroy_display(params->win->mlx_ptr);
+				free(params->win->mlx_ptr);
+			}
 			free(params->win);
+		}
 		if (params)
 			free(params);
 	}
@@ -36,7 +45,7 @@ void	ft_free(t_params *params, int i)
 
 void	xpm_destroyer(t_params *params)
 {
-	if (params->win != NULL && params->xpm != NULL)
+	if (params->xpm != NULL)
 	{
 		if (params->xpm->underground_img != NULL)
 			mlx_destroy_image(params->win->mlx_ptr,
@@ -49,8 +58,7 @@ void	xpm_destroyer(t_params *params)
 			mlx_destroy_image(params->win->mlx_ptr, params->xpm->collec_img);
 		if (params->xpm->exit_img != NULL)
 			mlx_destroy_image(params->win->mlx_ptr, params->xpm->exit_img);
-		if (params->xpm != NULL)
-			free(params->xpm);
+		free(params->xpm);
 	}
 }
 
