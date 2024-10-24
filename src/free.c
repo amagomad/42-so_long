@@ -6,7 +6,7 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:17:17 by amagomad          #+#    #+#             */
-/*   Updated: 2024/10/24 14:24:51 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/10/24 16:43:45 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,7 @@ void	ft_free(t_params *params, int i)
 		if (params->xpm)
 			xpm_destroyer(params);
 		if (params->win)
-		{
-			if (params->win->win_ptr)
-				mlx_destroy_window(params->win->mlx_ptr, params->win->win_ptr);
-			if (params->win->mlx_ptr)
-			{
-				mlx_destroy_display(params->win->mlx_ptr);
-				free(params->win->mlx_ptr);
-			}
-			free(params->win);
-		}
+			win_destroyer(params);
 		if (params)
 			free(params);
 	}
@@ -81,4 +72,16 @@ void	map_destroyer(t_params *params)
 		}
 		free(params->map);
 	}
+}
+
+void	win_destroyer(t_params *params)
+{
+	if (params->win->win_ptr)
+		mlx_destroy_window(params->win->mlx_ptr, params->win->win_ptr);
+	if (params->win->mlx_ptr)
+	{
+		mlx_destroy_display(params->win->mlx_ptr);
+		free(params->win->mlx_ptr);
+	}
+	free(params->win);
 }

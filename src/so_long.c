@@ -6,13 +6,13 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:10:22 by amagomad          #+#    #+#             */
-/*   Updated: 2024/10/24 14:07:58 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/10/24 16:44:05 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-int	main(int ac, char **av)
+int		main(int ac, char **av)
 {
 	t_params	*params;
 
@@ -21,6 +21,7 @@ int	main(int ac, char **av)
 	params->win = malloc(sizeof(t_win));
 	params->map = malloc(sizeof(t_map));
 	params->xpm = malloc(sizeof(t_xpm));
+	params->win->win_ptr = NULL;
 	stock_and_draw(params, av);
 	mlx_loop(params->win->mlx_ptr);
 	mlx_destroy_window(params->win->mlx_ptr, params->win->win_ptr);

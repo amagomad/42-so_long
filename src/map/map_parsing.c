@@ -6,7 +6,7 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:26:11 by amagomad          #+#    #+#             */
-/*   Updated: 2024/10/20 19:26:42 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/10/24 15:59:51 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	count_lines(char *line, int fd, t_params *params)
 		free(line);
 		line = get_next_line(fd);
 	}
+	free(line);
 	if (params->map)
 		params->map->height = height;
 	if (params->map)

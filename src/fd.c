@@ -6,19 +6,20 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:43:53 by amagomad          #+#    #+#             */
-/*   Updated: 2024/10/24 13:29:16 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/10/24 15:45:35 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-void	open_errors(int fd)
+int		open_errors(int fd)
 {
 	if (fd < 0)
 	{
 		ft_printf("ERROR : couldn't open file\n");
-		exit(EXIT_FAILURE);
+		return (1);
 	}
+	return (0);
 }
 
 void	ac_ext_check(int ac, char **av)

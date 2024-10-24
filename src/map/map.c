@@ -6,7 +6,7 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:22:21 by amagomad          #+#    #+#             */
-/*   Updated: 2024/10/22 18:29:09 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/10/24 15:46:31 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,11 @@ void	stock_map(t_params *params, char **av)
 	i = 0;
 	line = NULL;
 	fd = open(av[1], O_RDONLY);
-	open_errors(fd);
+	if (open_errors(fd) > 0)
+	{
+		ft_free(params, 1);
+		exit(EXIT_FAILURE);
+	}
 	height = count_lines(line, fd, params);
 	close(fd);
 	params->map->map = (char **)malloc(sizeof(char *) * (height + 1));
@@ -57,7 +61,6 @@ void	stock_map(t_params *params, char **av)
 		exit(EXIT_FAILURE);
 	}
 	fd = open(av[1], O_RDONLY);
-	open_errors(fd);
 	file_read_stock(params->map, fd);
 	close(fd);
 }

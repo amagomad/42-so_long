@@ -6,7 +6,7 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:09:58 by amagomad          #+#    #+#             */
-/*   Updated: 2024/10/24 13:38:57 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/10/24 15:42:00 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <signal.h>
+#include <string.h>
 
 typedef struct s_flood
 {
@@ -113,11 +114,11 @@ void	collec_and_print_moves(t_params *params, int new_x,
 void	ft_free(t_params *params, int i);
 void	xpm_destroyer(t_params *params);
 void	map_destroyer(t_params *params);
-void	malloc_structs(t_params *params);
+void	win_destroyer(t_params *params);
 
 // fd
 
-void	open_errors(int fd);
+int		open_errors(int fd);
 void	ac_ext_check(int ac, char **av);
 void	file_read_stock(t_map *map, int fd);
 int		file_ext(char *filename);
