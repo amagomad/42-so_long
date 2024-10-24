@@ -6,7 +6,7 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:09:58 by amagomad          #+#    #+#             */
-/*   Updated: 2024/09/23 20:22:17 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/10/24 13:38:57 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 # include "ft_printf/ft_printf.h"
 # include "getnextline/get_next_line.h"
-# include "mlx/mlx.h"
+# include "minilibx-linux/mlx.h"
 # include <fcntl.h>
 # include <stdarg.h>
 # include <stdio.h>
@@ -45,6 +45,8 @@ typedef struct s_win
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
+	int			height;
+	int			width;
 }	t_win;
 
 typedef struct s_map
@@ -102,7 +104,6 @@ void	can_i_exit(t_params *params);
 int		ft_strlen(char *str);
 int		close_window(t_params *params);
 int		key_press(int keycode, t_params *params);
-int		key_release(int keycode, t_params *params);
 char	*ft_strdup(char *src);
 void	collec_and_print_moves(t_params *params, int new_x,
 			int new_y, int keycode);
@@ -110,9 +111,9 @@ void	collec_and_print_moves(t_params *params, int new_x,
 // free
 
 void	ft_free(t_params *params, int i);
-void	win_destroyer(t_params *params);
 void	xpm_destroyer(t_params *params);
 void	map_destroyer(t_params *params);
+void	malloc_structs(t_params *params);
 
 // fd
 
@@ -120,6 +121,7 @@ void	open_errors(int fd);
 void	ac_ext_check(int ac, char **av);
 void	file_read_stock(t_map *map, int fd);
 int		file_ext(char *filename);
+int		ismaptoobig(t_params *params);
 
 // map
 

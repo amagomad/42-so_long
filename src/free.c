@@ -6,7 +6,7 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:17:17 by amagomad          #+#    #+#             */
-/*   Updated: 2024/09/23 20:22:44 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/10/24 13:47:04 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	ft_free(t_params *params, int i)
 {
-	int		j;
-
-	j = 0;
 	if (i > 0)
 	{
 		free(params->xpm);
@@ -30,6 +27,8 @@ void	ft_free(t_params *params, int i)
 			map_destroyer(params);
 		if (params->xpm)
 			xpm_destroyer(params);
+		if (params->win)
+			free(params->win);
 		if (params)
 			free(params);
 	}

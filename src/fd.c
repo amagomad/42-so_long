@@ -6,7 +6,7 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:43:53 by amagomad          #+#    #+#             */
-/*   Updated: 2024/09/23 18:38:55 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/10/24 13:29:16 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,15 @@ int	file_ext(char *filename)
 	ext_len = strlen(ext);
 	if (len >= ext_len && strcmp(filename + len - ext_len, ext) == 0)
 		return (1);
+	else
+		return (0);
+}
+
+int		ismaptoobig(t_params *params)
+{
+	mlx_get_screen_size(params->win->mlx_ptr, &params->win->width, &params->win->height);
+	if (params->map->height > params->win->height || params->map->width > params->win->width)
+		return(1);
 	else
 		return (0);
 }
