@@ -6,7 +6,7 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:43:53 by amagomad          #+#    #+#             */
-/*   Updated: 2024/10/28 12:23:35 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/10/28 18:36:04 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	open_errors(int fd)
 
 void	ac_ext_check(int ac, char **av)
 {
-	int fd;
-	
+	int		fd;
+
 	fd = open(av[1], O_RDONLY);
 	if (ac - 1 != 1)
 	{

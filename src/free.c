@@ -6,7 +6,7 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:17:17 by amagomad          #+#    #+#             */
-/*   Updated: 2024/10/28 13:41:02 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/10/28 18:37:53 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	ft_free(t_params *params, int i)
 {
 	if (i > 0)
 	{
-		free(params->pos);
 		free(params->xpm);
 		free(params->map);
 		free(params->win);
@@ -24,8 +23,6 @@ void	ft_free(t_params *params, int i)
 	}
 	else
 	{
-		if (params->pos)
-			free(params->pos);
 		if (params->map)
 			map_destroyer(params);
 		if (params->xpm)
@@ -87,4 +84,14 @@ void	win_destroyer(t_params *params)
 		free(params->win->mlx_ptr);
 	}
 	free(params->win);
+}
+
+void	invalid_map(t_params *params)
+{
+	if (params->map->height < 1 || params->map->width < 2)
+	{
+		ft_printf("ERROR : Invalid format\n");
+		ft_free(params, 1);
+		exit(EXIT_FAILURE);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:10:22 by amagomad          #+#    #+#             */
-/*   Updated: 2024/10/28 13:39:17 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/10/28 18:31:42 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ int	main(int ac, char **av)
 	params->win = malloc(sizeof(t_win));
 	params->map = malloc(sizeof(t_map));
 	params->xpm = malloc(sizeof(t_xpm));
-	params->pos = malloc(sizeof(t_pos));
 	params->win->win_ptr = NULL;
-	params->pos->tails_min = 1;
-	params->pos->tails_max = 15;
 	stock_and_draw(params, av);
 	mlx_loop(params->win->mlx_ptr);
 	mlx_destroy_window(params->win->mlx_ptr, params->win->win_ptr);
