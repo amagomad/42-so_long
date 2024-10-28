@@ -1,6 +1,6 @@
 CC = clang
 CFLAGS = -Wall -Wextra -Werror -g
-SRC = src/so_long.c src/utils.c src/map/map.c src/map/draw_characters.c src/map/map_parsing.c src/map/map_parsing_2.c src/free.c src/fd.c includes/getnextline/get_next_line.c includes/getnextline/get_next_line_utils.c
+SRC = src/so_long.c src/utils.c src/map/map.c src/map/draw_characters.c src/map/map_parsing.c src/map/map_parsing_2.c src/map/tails.c src/free.c src/fd.c includes/getnextline/get_next_line.c includes/getnextline/get_next_line_utils.c
 OBJ = $(SRC:.c=.o)
 NAME = so_long
 

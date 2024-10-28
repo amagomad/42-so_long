@@ -6,7 +6,7 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 10:09:58 by amagomad          #+#    #+#             */
-/*   Updated: 2024/10/24 15:42:00 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/10/28 13:40:08 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,13 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <signal.h>
-#include <string.h>
+# include <string.h>
+
+typedef struct s_pos
+{
+	int		tails_min;
+	int		tails_max;
+}	t_pos;
 
 typedef struct s_flood
 {
@@ -91,6 +97,7 @@ typedef struct s_params
 	t_xpm	*xpm;
 	t_map	*map;
 	t_win	*win;
+	t_pos	*pos;
 }	t_params;
 
 // so_long
@@ -157,5 +164,10 @@ void	find_start_position(t_map *map, int *start_x, int *start_y);
 void	free_map_copy(char **map_copy, int height);
 void	lines_checker(t_params *params, char *line, int fd);
 void	players_count(t_params *params);
+
+	// tails
+
+void	tails_updater(t_params	*params);
+void	invalid_map(t_params *params);;
 
 #endif

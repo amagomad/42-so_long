@@ -6,7 +6,7 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:22:21 by amagomad          #+#    #+#             */
-/*   Updated: 2024/10/24 15:46:31 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/10/28 13:38:47 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,11 @@
 void	stock_and_draw(t_params *params, char **av)
 {
 	stock_map(params, av);
-	params->map->nb_moves = 0;
 	collectibles_count(params->map);
 	mlx_xpm_init(params->xpm, params->win, params);
 	if (!check_walls(params->map) || !validate_map(params))
 	{
-		printf("ERROR : Invalid map\n");
+		ft_printf("ERROR : Invalid format\n");
 		ft_free(params, 0);
 		exit(EXIT_FAILURE);
 	}
@@ -53,6 +52,7 @@ void	stock_map(t_params *params, char **av)
 		exit(EXIT_FAILURE);
 	}
 	height = count_lines(line, fd, params);
+	invalid_map(params);
 	close(fd);
 	params->map->map = (char **)malloc(sizeof(char *) * (height + 1));
 	if (!params->map->map)
@@ -98,6 +98,7 @@ void	collectibles_count(t_map *map)
 	int		y;
 
 	y = 0;
+	map->nb_moves = 0;
 	map->collected = 0;
 	map->total_collec = 0;
 	while (y < map->height)

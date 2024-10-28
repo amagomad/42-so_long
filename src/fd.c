@@ -6,29 +6,36 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:43:53 by amagomad          #+#    #+#             */
-/*   Updated: 2024/10/24 15:45:35 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/10/28 12:23:35 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-int		open_errors(int fd)
+int	open_errors(int fd)
 {
 	if (fd < 0)
-	{
-		ft_printf("ERROR : couldn't open file\n");
 		return (1);
-	}
 	return (0);
 }
 
 void	ac_ext_check(int ac, char **av)
 {
+	int fd;
+	
+	fd = open(av[1], O_RDONLY);
 	if (ac - 1 != 1)
 	{
 		ft_printf("ERROR : 1 argument is the amount required\n");
 		exit(EXIT_FAILURE);
 	}
+	if (open_errors(fd))
+	{
+		ft_printf("ERROR : argument can't be opened\n");
+		close(fd);
+		exit(EXIT_FAILURE);
+	}
+	close(fd);
 	if (!file_ext(av[1]))
 	{
 		ft_printf("ERROR : File must have a .ber extension\n");
@@ -69,11 +76,13 @@ int	file_ext(char *filename)
 		return (0);
 }
 
-int		ismaptoobig(t_params *params)
+int	ismaptoobig(t_params *params)
 {
-	mlx_get_screen_size(params->win->mlx_ptr, &params->win->width, &params->win->height);
-	if (params->map->height > params->win->height || params->map->width > params->win->width)
-		return(1);
+	mlx_get_screen_size(params->win->mlx_ptr, &params->win->width,
+		&params->win->height);
+	if (params->map->height > params->win->height
+		|| params->map->width > params->win->width)
+		return (1);
 	else
 		return (0);
 }

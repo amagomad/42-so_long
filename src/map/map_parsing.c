@@ -6,7 +6,7 @@
 /*   By: amagomad <amagomad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 12:26:11 by amagomad          #+#    #+#             */
-/*   Updated: 2024/10/24 15:59:51 by amagomad         ###   ########.fr       */
+/*   Updated: 2024/10/28 12:38:16 by amagomad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void	exits_count(t_params *params)
 	}
 	if (n != 1)
 	{
-		ft_printf("ERROR : (Only) 1 exit is required\n");
+		ft_printf("ERROR : 1 exit is the required amount\n");
 		ft_free(params, 0);
 		exit(EXIT_FAILURE);
 	}
